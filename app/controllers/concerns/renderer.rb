@@ -1,7 +1,7 @@
 module Renderer
 
-  def render_object(resource, status = :ok)
-    render json: resource, status: status
+  def render_object(object, status = :ok)
+    render json: object, status: status
   end 
 
   def render_errors(errors, status = :unprocessable_entity)
