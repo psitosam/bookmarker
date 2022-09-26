@@ -11,7 +11,7 @@ RSpec.describe "Api::V1::Users", type: :request do
       expected_body = { 'email' => 'user@testemail.test'}
 
       expect(response).to have_http_status(:created)
-      expect(JSON.parse(response.body)).to include(expected_body)
+      expect(load_body(response)).to include(expected_body)
     end 
 
     it 'returns unprocessable entity with errors' do
@@ -21,7 +21,7 @@ RSpec.describe "Api::V1::Users", type: :request do
       expected_error = { 'password' => ['can\'t be blank'] }
 
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(JSON.parse(response.body)).to eq(expected_error)
+      expect(load_body(response)).to eq(expected_error)
     end 
   end
 end
