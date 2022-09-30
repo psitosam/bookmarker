@@ -8,10 +8,9 @@ RSpec.describe "Api::V1::Users", type: :request do
 
     it 'creates a new user when given valid params' do 
       post api_v1_users_path, params: {user: user_params}
-      expected_body = { 'email' => 'user@testemail.test'}
-
+      expected_data = { 'email' => 'user@testemail.test'}
       expect(response).to have_http_status(:created)
-      expect(load_body(response)['user']).to include(expected_body)
+      expect(load_body_data(response)).to include(expected_data)
     end 
 
     it 'returns unprocessable entity with errors' do
@@ -21,7 +20,7 @@ RSpec.describe "Api::V1::Users", type: :request do
       expected_error = { 'password' => ['can\'t be blank'] }
 
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(load_body(response)).to eq(expected_error)
+      expect(load_body_errors(response)).to eq(expected_error)
     end 
   end
 end
