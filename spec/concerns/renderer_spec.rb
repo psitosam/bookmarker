@@ -29,9 +29,11 @@ RSpec.describe Renderer, type: :controller do
       get :show, params: { id: resource.id }
 
       data_fields = { 'id' => resource.id, 'email' => resource.email }
+      meta_fields = { 'resource' => 'User', 'count' => 1 }
 
       expect(response.status).to eq(200)
       expect(load_body_data(response)).to include(data_fields)
+      expect(load_body_meta(response)).to include(meta_fields)
     end 
   end 
 
@@ -45,7 +47,7 @@ RSpec.describe Renderer, type: :controller do
       }
 
       expect(response.status).to eq(422)
-      expect(load_body(response)).to eq(error_fields)
+      expect(load_body_errors(response)).to eq(error_fields)
     end 
   end 
 end
